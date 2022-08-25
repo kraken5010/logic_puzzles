@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="propose-block">
+    <form action="{% url 'propose_puzzle' %}" method="post">
+    {% csrf_token %}
+
+    {% for f in form %}
+    <p><label for="">{{ f.label }}:</label>
+        <div class="form-error">{{ f.errors }}</div>
+        {{ f }}
+    </p>
+    {% endfor %}
+
+    <button class="send-btn" type="submit">Send puzzle</button>
+    </form>
+</div>
+{% endblock content %}

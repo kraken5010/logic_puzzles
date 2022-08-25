@@ -1,0 +1,317 @@
+@font-face {
+  font-family: 'e-Ukraine-bold';
+  src: url('web/e-Ukraine-Bold.woff') format('woff');
+}
+@font-face {
+  font-family: 'e-Ukraine-light';
+  src: url('web/e-Ukraine-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'e-Ukraine-medium';;
+  src: url('web/e-Ukraine-Medium.woff') format('woff');
+}
+
+/*Обнуление*/
+*{
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,*:before,*:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+  height: 100%;
+  width: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none !important;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+
+/*--------------------*/
+
+/* ROOT STYLES COLOR start */
+:root {
+  --color-bg: #EBECF0;
+  --color-shadow: #BABECC;
+  --color-white: #FFF;
+  --color-red: #AE1100;
+}
+/* ROOT STYLES COLOR end */
+
+/* Form style start */
+button, input, textarea {
+  margin-bottom: 20px;
+  font-size: 18px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: var(--color-bg);
+  text-shadow: 1px 1px 0 var(--color-white);
+}
+
+input, textarea {
+  box-shadow: inset 2px 2px 5px var(--color-shadow), 
+              inset -5px -5px 10px var(--color-white);
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+input:focus, textarea:focus {
+    box-shadow: inset 1px 1px 2px var(--color-shadow), 
+                inset -1px -1px 2px var(--color-white);
+}
+
+button {
+  color:#4e4e4e;
+  box-shadow: -5px -5px 20px var(--color-white),  
+              5px 5px 20px var(--color-shadow);
+  transition: all 0.2s ease-in-out;
+  font-family: 'e-Ukraine-Medium';
+}  
+button:hover {
+    box-shadow: -2px -2px 5px var(--color-white), 
+                2px 2px 5px var(--color-shadow);
+}
+  
+button:active {
+    box-shadow: inset 1px 1px 2px var(--color-shadow), 
+                inset -1px -1px 2px var(--color-white);
+}
+
+label{
+  display: block;
+  margin-bottom: 10px;
+  color: var(--color-red);
+  font-family: 'e-Ukraine-Medium';
+}
+
+.send-btn{
+  font-size: 24px;
+  color: var(--color-red);
+  width: 100%;
+  margin-top: 20px;  
+}
+
+/* Form style end */
+
+.clear{
+  clear: both;
+}
+
+a{
+  color: var(--main-black);
+}
+
+body{
+  position: relative;
+  height: 100vh;
+  background-color: var(--color-bg);
+  font-size: 18px;
+  font-family: 'e-Ukraine-light';
+}
+.wrapper{
+  min-height: 100%;
+  transition: 0.5s;
+}
+
+
+/* header start */
+header{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+header .logo{
+  width: 300px;
+  text-align: center;
+}
+
+.logo a{
+  font-size: 28px;
+  font-family: 'e-Ukraine-Bold';
+  padding: 10px 20px;
+}
+
+header .login-block {
+  position: absolute;
+  right: 40px;
+}
+
+.login-block li{
+  float: left;
+}
+
+.login-block li a{
+  padding: 10px 25px;
+  border-radius: 20px;
+  transition: 0.3s ease-in-out;
+}
+.login-block li a:hover{
+  box-shadow: -2px -2px 5px var(--color-white), 
+                2px 2px 5px var(--color-shadow);
+}
+/* header end */
+
+/* Left nav menu start */
+.nav{
+  position: absolute;
+  height: calc(100vh - 80px);
+  width: 300px;
+  border-right: 5px solid rgb(252, 252, 252);
+}
+
+.menu-items{
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.menu-items li{
+  font-size: 22px;
+  margin-bottom: 30px;  
+}
+.menu-items li a{
+  font-family: 'e-Ukraine-Medium';
+  transition: 0.2s;
+  padding: 10px;
+}
+.menu-items li a:hover{
+  font-size: 23px;
+  color: #dddddd;
+  text-shadow: 2px -2px 4px #020202,
+              -2px 2px 4px #ffffff;
+}
+/* Left nav menu end */
+
+/* content-block start */
+.content{
+  width: calc(100% - 300px);
+  float: right;
+  height: calc(100vh - 80px);
+  overflow: auto;
+  padding: 20px 50px;
+}
+/* content-block end */
+
+/* Question list start */
+.question-list{
+  text-align: left;
+}
+
+.list-item{
+  padding: 10px;
+  
+}
+.list-item a{
+  padding: 10px 25px;
+  transition: 0.25s;
+}
+
+.list-item a:hover{
+  font-size: 19px;
+  color: #dddddd;
+  text-shadow: 1px -1px 2px #020202,
+              -1px 1px 2px #ffffff;
+}
+/* Question list end */
+
+/* Question-block start */
+.question-item {
+  max-width: 900px;
+  margin: 0 auto;
+  
+}
+
+.question-text{
+  background: var(--color-white);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.answer-btn{
+  display: block;
+  width: 100%;
+  background: var(--color-bg);
+  padding: 10px 25px;
+  border-radius: 10px;
+  transition: 0.25s;
+  box-shadow: -5px -5px 20px var(--color-white),  
+              5px 5px 20px var(--color-shadow);
+  cursor: pointer;
+}
+.answer-btn:hover{
+  box-shadow: -2px -2px 5px var(--color-white), 
+                2px 2px 5px var(--color-shadow);
+}
+
+.answer{
+  width: 100%;
+  background: var(--color-white);
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+input[type=checkbox] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+input[type=checkbox]:not(:checked) ~ .answer{
+  display: none;
+}
+
+.prev-puzzle, .next-puzzle{
+  display: inline-block;
+  margin-top: 30px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  color:var(--main-black);
+  box-shadow: -5px -5px 20px var(--color-white),
+              5px 5px 20px var(--color-shadow);
+  transition: all 0.2s ease-in-out;
+  font-family: 'e-Ukraine-Medium';
+}
+.prev-puzzle:hover, .next-puzzle:hover{
+  box-shadow: -2px -2px 5px var(--color-white),
+                2px 2px 5px var(--color-shadow);
+}
+.next-puzzle{
+  float: right;
+}
+/* Question block end */
+
+/* Propose block start */
+.propose-block{
+  max-width: 800px;
+  margin: auto;
+}
+.propose-block textarea{
+  height: 120px;
+}
+.propose-block .form-error{
+    color: red;
+    margin-bottom: 10px;
+    font-family: 'e-Ukraine-bold';
+}
+/* Propose block end */

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="question-list">
+    <ul class="list">
+        {% for user_puzzle in users_puzzles %}
+        <li class="list-item"><a href="{{ user_puzzle.get_absolute_url }}">{{ user_puzzle.id }}. {{ user_puzzle.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}
