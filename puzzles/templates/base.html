@@ -14,11 +14,17 @@
 <wrapper>
 
   <header>
-    <div class="logo"><a href="{% url 'home' %}">LOGO</a></div>
+    <div class="logo"><a href="{% url 'home' %}">
+        <img src="{% static 'img/logic_logo.png' %}" alt=""></a>
+    </div>
     <ul class="login-block">
-      {% for ml in menu_login %}
-      <li><a href="{% url ml.url_name %}">{{ ml.title }}</a></li>
-      {% endfor %}
+      {% if request.user.is_authenticated %}
+        <li style="margin-right: 10px;">{{ user.username }}</li>
+        <li><a href="{% url 'logout' %}">logout</a></li>
+      {% else %}
+        <li><a href="{% url 'sign_in' %}">sign in</a></li>
+        <li><a href="{% url 'sign_up' %}">sign up</a></li>
+      {% endif %}
     </ul>
   </header>
 

@@ -57,6 +57,11 @@ img{vertical-align: top;}
 /* ROOT STYLES COLOR end */
 
 /* Form style start */
+form{
+  max-width: 800px;
+  margin: auto;
+}
+
 button, input, textarea {
   margin-bottom: 20px;
   font-size: 18px;
@@ -142,13 +147,15 @@ header{
 
 header .logo{
   width: 300px;
-  text-align: center;
 }
 
 .logo a{
-  font-size: 28px;
-  font-family: 'e-Ukraine-Bold';
-  padding: 10px 20px;
+  display: flex;
+}
+
+.logo a img{
+  width: 80px;
+  margin: 0 auto;
 }
 
 header .login-block {
@@ -182,7 +189,7 @@ header .login-block {
 .menu-items{
   width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .menu-items li{
@@ -302,16 +309,60 @@ input[type=checkbox]:not(:checked) ~ .answer{
 /* Question block end */
 
 /* Propose block start */
-.propose-block{
-  max-width: 800px;
-  margin: auto;
-}
 .propose-block textarea{
   height: 120px;
 }
-.propose-block .form-error{
+.form-error{
     color: red;
     margin-bottom: 10px;
     font-family: 'e-Ukraine-bold';
 }
+.propose-message{
+    font-family: 'e-Ukraine-bold';
+    color: var(--color-red);
+    font-size: 24px;
+    text-align: center;
+}
 /* Propose block end */
+
+/* Sign in page start */
+.or-item{
+    text-align: center;
+    font-size: 26px;
+    color: var(--color-shadow);
+    font-family: 'e-Ukraine-Medium';
+    margin: 20px auto 30px auto;
+}
+.log-item{
+    display: block;
+    color: var(--color-red);
+    box-shadow: -5px -5px 20px var(--color-white),
+              5px 5px 20px var(--color-shadow);
+    transition: all 0.2s ease-in-out;
+    font-family: 'e-Ukraine-Medium';
+    font-size: 22px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: var(--color-bg);
+    text-shadow: 1px 1px 0 var(--color-white);
+    width: 300px;
+    text-align: center;
+    margin: auto;
+}
+.log-item:hover {
+    box-shadow: -2px -2px 5px var(--color-white),
+                2px 2px 5px var(--color-shadow);
+}
+/* Sign in page end */
+
+/* About page start */
+.about-block p{
+  margin: 20px 0;
+}
+.about-block ul{
+  margin-left: 40px;
+}
+.about-block ul li{
+  list-style-type: disc;
+}
+/* About page end */

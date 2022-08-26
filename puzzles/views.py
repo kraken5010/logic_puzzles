@@ -1,13 +1,13 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from .models import *
 from .forms import *
 
-menu_login = [
-    {'title': 'sign in', 'url_name': 'sign_in'},
-    {'title': 'sign up', 'url_name': 'sign_up'}
-]
 menu = [
     {'title': 'Main puzzles', 'url_name': 'main_puzzles'},
     {'title': 'Users puzzles', 'url_name': 'users_puzzles'},
@@ -20,7 +20,6 @@ menu = [
 def main_puzzles(request):
     puzzles = Puzzle.objects.all()
     context = {
-        'menu_login': menu_login,
         'menu': menu,
         'title': 'Logic puzzles',
         'puzzles': puzzles
@@ -41,7 +40,6 @@ def puzzle_detail(request, puzzle_slug):
         prev_puzzle = None
 
     context = {
-        'menu_login': menu_login,
         'menu': menu,
         'puzzle': puzzle,
         'title': puzzle.title,
@@ -51,18 +49,9 @@ def puzzle_detail(request, puzzle_slug):
     return render(request, 'puzzle_detail.html', context=context)
 
 
-def sign_in(request):
-    return HttpResponse('About app')
-
-
-def sign_up(request):
-    return HttpResponse('About app')
-
-
 def users_puzzles(request):
-    users_puzzles = UserPuzzle.objects.all()
+    users_puzzles = UserPuzzle.objects.filter(draft=True)
     context = {
-        'menu_login': menu_login,
         'menu': menu,
         'title': 'Users puzzles',
         'users_puzzles': users_puzzles
@@ -83,7 +72,6 @@ def user_puzzle_detail(request, user_puzzle_slug):
         prev_puzzle = None
 
     context = {
-        'menu_login': menu_login,
         'menu': menu,
         'puzzle': puzzle,
         'title': puzzle.title,
@@ -94,15 +82,20 @@ def user_puzzle_detail(request, user_puzzle_slug):
 
 
 def propose_puzzle(request):
+    current_user = request.user
     if request.method == 'POST':
         form = AddUserPuzzleForm(request.POST)
         if form.is_valid():
-            form.save()
+            puzzle = form.save(commit=False)
+            puzzle.username = current_user.username
+            puzzle.email = current_user.email
+            print(puzzle.email)
+            puzzle.save()
+        return redirect('users_puzzles')
     else:
         form = AddUserPuzzleForm()
 
     context = {
-        'menu_login': menu_login,
         'menu': menu,
         'title': 'Propose a puzzle',
         'form': form
@@ -111,4 +104,49 @@ def propose_puzzle(request):
 
 
 def about_app(request):
-    return HttpResponse('About app')
+    context = {
+        'menu': menu,
+        'title': 'About app',
+    }
+    return render(request, 'about_app.html', context=context)
+
+
+def sign_up(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Auto login user after register
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+
+    context = {
+        'menu': menu,
+        'title': 'Sign up',
+        'form': form
+    }
+    return render(request, 'sign_up.html', context=context)
+
+
+class SignInUser(LoginView):
+    form_class = SignInForm
+    template_name = 'sign_in.html'
+
+    def get_context_data(self):
+        context = {
+            'menu': menu,
+            'title': 'Sign in',
+            'form': self.form_class
+        }
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('sign_in')

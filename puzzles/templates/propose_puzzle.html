@@ -12,7 +12,11 @@
     </p>
     {% endfor %}
 
+    {% if request.user.is_authenticated %}
     <button class="send-btn" type="submit">Send puzzle</button>
+      {% else %}
+    <p class="propose-message">Only authorized users can add puzzles</p>
+    {% endif %}
     </form>
 </div>
 {% endblock content %}

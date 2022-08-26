@@ -10,9 +10,8 @@
         <div class="form-error">{{ f.errors }}</div>
         {{ f }}
     {% endfor %}
-
-    <button class="send-btn" type="submit">Sign Up</button>
-
-
+    <button class="send-btn" type="submit">sign in</button>
+    <p class="or-item">or</p>
+    <a class="log-item" href="{% url 'sign_up' %}">sign up</a>
 </form>
 {% endblock content %}
