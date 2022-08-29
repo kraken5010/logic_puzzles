@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -32,8 +33,7 @@ class Puzzle(CommonPuzzle):
 class UserPuzzle(CommonPuzzle):
     """UserPuzzle model"""
     draft = models.BooleanField('Draft', default=True)
-    username = models.CharField('User name', max_length=50)
-    email = models.CharField('Email', max_length=50)
+    user = models.ForeignKey(User, verbose_name='User', on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse('user_puzzle', kwargs={'user_puzzle_slug': self.slug})

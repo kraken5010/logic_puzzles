@@ -1,11 +1,9 @@
-from rest_framework import generics
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from .forms import *
-from .serializers import PuzzleSerializer
 
 menu = [
     {'title': 'Main puzzles', 'url_name': 'main_puzzles'},
@@ -81,15 +79,13 @@ def user_puzzle_detail(request, user_puzzle_slug):
 
 
 def propose_puzzle(request):
-    current_user = request.user
+
     if request.method == 'POST':
         form = AddUserPuzzleForm(request.POST)
         if form.is_valid():
-            puzzle = form.save(commit=False)
-            puzzle.username = current_user.username
-            puzzle.email = current_user.email
-            print(puzzle.email)
-            puzzle.save()
+            obj = form.save(commit=False)
+            obj.user = request.user
+            form.save()
         return redirect('users_puzzles')
     else:
         form = AddUserPuzzleForm()
@@ -153,6 +149,3 @@ def logout_user(request):
     return redirect('sign_in')
 
 
-class PuzzleAPIView(generics.ListAPIView):
-    queryset = Puzzle.objects.all()
-    serializer_class = PuzzleSerializer

@@ -11,9 +11,9 @@ class PuzzleAdmin(admin.ModelAdmin):
 
 
 class UserPuzzleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'question', 'answer', 'draft', 'username', 'email')
+    list_display = ('id', 'title', 'question', 'answer', 'draft', 'user')
     list_display_links = ('id', 'title')
-    search_fields = ('title', 'username')
+    search_fields = ('title', 'user')
     prepopulated_fields = {'slug': ('title',)}
 
 

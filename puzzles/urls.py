@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include, re_path
 from .views import *
+from .api_views import *
 
 urlpatterns = [
     path('', main_puzzles, name='home'),
@@ -13,5 +14,13 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('about_app/', about_app, name='about_app'),
     # api urls
-    path('api/v1/puzzle_list/', PuzzleAPIView.as_view()),
+    path('api/v1/puzzleslist/', PuzzleAPIList.as_view()),
+    path('api/v1/puzzle/detail/<int:pk>/', PuzzleAPIDetail.as_view()),
+    path('api/v1/userpuzzlelist/', UserPuzzleAPIList.as_view()),
+    path('api/v1/userpuzzle/detail/<int:pk>/', UserPuzzleAPIDetail.as_view()),
+    path('api/v1/userpuzzle/create/', UserPuzzleAPICreate.as_view()),
+    # authentication
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('api/v1/auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]

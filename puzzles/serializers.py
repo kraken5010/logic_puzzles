@@ -8,3 +8,11 @@ class PuzzleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserPuzzleSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = UserPuzzle
+        fields = '__all__'
+
+
