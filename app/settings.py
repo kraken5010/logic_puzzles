@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'puzzles.apps.PuzzlesConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -12,4 +12,6 @@ urlpatterns = [
     path('sign_in/', SignInUser.as_view(), name='sign_in'),
     path('logout/', logout_user, name='logout'),
     path('about_app/', about_app, name='about_app'),
+    # api urls
+    path('api/v1/puzzle_list/', PuzzleAPIView.as_view()),
 ]

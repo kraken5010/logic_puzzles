@@ -1,12 +1,11 @@
+from rest_framework import generics
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
 
-from .models import *
 from .forms import *
+from .serializers import PuzzleSerializer
 
 menu = [
     {'title': 'Main puzzles', 'url_name': 'main_puzzles'},
@@ -112,6 +111,7 @@ def about_app(request):
 
 
 def sign_up(request):
+    """Authorization"""
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -132,10 +132,11 @@ def sign_up(request):
 
 
 class SignInUser(LoginView):
+    """Authentication"""
     form_class = SignInForm
     template_name = 'sign_in.html'
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         context = {
             'menu': menu,
             'title': 'Sign in',
@@ -150,3 +151,8 @@ class SignInUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('sign_in')
+
+
+class PuzzleAPIView(generics.ListAPIView):
+    queryset = Puzzle.objects.all()
+    serializer_class = PuzzleSerializer
