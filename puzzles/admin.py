@@ -17,5 +17,12 @@ class UserPuzzleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'text', 'puzzle', 'user_puzzle', 'user', 'parent')
+    list_display_links = ('id', 'puzzle', 'user_puzzle')
+    search_fields = ('text', 'user', 'parent')
+
+
 admin.site.register(Puzzle, PuzzleAdmin)
 admin.site.register(UserPuzzle, UserPuzzleAdmin)
+admin.site.register(Comment, CommentAdmin)

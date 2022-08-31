@@ -77,6 +77,7 @@ input, textarea {
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
+  resize: none;
 }
 input:focus, textarea:focus {
     box-shadow: inset 1px 1px 2px var(--color-shadow), 
@@ -287,10 +288,14 @@ input[type=checkbox] {
 input[type=checkbox]:not(:checked) ~ .answer{
   display: none;
 }
+.nav-buttons{
+    margin: 30px auto;
+    display: flex;
+    flex-flow: row wrap;
+}
 
 .prev-puzzle, .next-puzzle{
   display: inline-block;
-  margin-top: 30px;
   border-radius: 20px;
   padding: 10px 20px;
   color:var(--main-black);
@@ -304,9 +309,60 @@ input[type=checkbox]:not(:checked) ~ .answer{
                 2px 2px 5px var(--color-shadow);
 }
 .next-puzzle{
-  float: right;
+  order: 999;
+  margin-left: auto;
 }
 /* Question block end */
+
+/* Comment block start */
+.comment-block{
+  max-width: 900px;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+.comm-list li{
+  margin: 10px 0;
+}
+.child-comm-list{
+  margin-left: 30px;
+}
+.comm-author{
+  font-weight: bold;
+}
+input[type=checkbox] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+input[type=checkbox]:not(:checked) ~ .form-answer{
+  display: none;
+}
+.comm-answer {
+  color: #3caa1b;
+  font-family: sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  transition: 0.25s;
+}
+.comm-answer:hover {
+  color: #339c12;
+  text-decoration: underline;
+}
+.form-answer{
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+.form-answer textarea {
+  border-radius: 5px;
+  margin: 10px auto;
+}
+.send-comm-btn {
+  border-radius: 5px;
+  font-size: 14px;
+  color: #3caa1b;
+  float: right;
+}
+/* Comment block end */
 
 /* Propose block start */
 .propose-block textarea{

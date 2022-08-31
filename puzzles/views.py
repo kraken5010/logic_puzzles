@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -25,23 +26,60 @@ def main_puzzles(request):
 
 
 def puzzle_detail(request, puzzle_slug):
-    puzzle = Puzzle.objects.get(slug=puzzle_slug)
     try:
-        next_puzzle = Puzzle.objects.get(pk=int(puzzle.id + 1))
-    except:
-        next_puzzle = None
+        puzzle = Puzzle.objects.get(slug=puzzle_slug)
+        try:
+            next_puzzle = Puzzle.objects.get(pk=int(puzzle.id + 1))
+        except:
+            next_puzzle = None
+        try:
+            prev_puzzle = Puzzle.objects.get(pk=int(puzzle.id - 1))
+        except:
+            prev_puzzle = None
 
-    try:
-        prev_puzzle = Puzzle.objects.get(pk=int(puzzle.id - 1))
+        puzzle_to_form = puzzle
+        comments = Comment.objects.filter(puzzle=puzzle, parent__isnull=True).select_related('user')
+
     except:
-        prev_puzzle = None
+        puzzle = UserPuzzle.objects.get(slug=puzzle_slug)
+        try:
+            next_puzzle = UserPuzzle.objects.get(pk=int(puzzle.id + 1))
+        except:
+            next_puzzle = None
+        try:
+            prev_puzzle = UserPuzzle.objects.get(pk=int(puzzle.id - 1))
+        except:
+            prev_puzzle = None
+
+        user_puzzle_to_form = puzzle
+        comments = Comment.objects.filter(user_puzzle=puzzle, parent__isnull=True).select_related('user')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = request.user
+            try: data.puzzle = puzzle_to_form
+            except: data.puzzle = None
+            try: data.user_puzzle = user_puzzle_to_form
+            except: data.user_puzzle = None
+
+            if request.POST.get('parent', None):
+                form.parent_id = int(request.POST.get('parent'))
+
+            form.save()
+            return HttpResponseRedirect(request.path)
+    else:
+        form = CommentForm()
 
     context = {
         'menu': menu,
         'puzzle': puzzle,
+        'comments': comments,
         'title': puzzle.title,
         'next_puzzle': next_puzzle,
-        'prev_puzzle': prev_puzzle
+        'prev_puzzle': prev_puzzle,
+        'form': form
     }
     return render(request, 'puzzle_detail.html', context=context)
 
@@ -56,30 +94,7 @@ def users_puzzles(request):
     return render(request, 'users_puzzles.html', context=context)
 
 
-def user_puzzle_detail(request, user_puzzle_slug):
-    puzzle = UserPuzzle.objects.get(slug=user_puzzle_slug)
-    try:
-        next_puzzle = UserPuzzle.objects.get(pk=int(puzzle.id + 1))
-    except:
-        next_puzzle = None
-
-    try:
-        prev_puzzle = UserPuzzle.objects.get(pk=int(puzzle.id - 1))
-    except:
-        prev_puzzle = None
-
-    context = {
-        'menu': menu,
-        'puzzle': puzzle,
-        'title': puzzle.title,
-        'next_puzzle': next_puzzle,
-        'prev_puzzle': prev_puzzle
-    }
-    return render(request, 'user_puzzle_detail.html', context=context)
-
-
 def propose_puzzle(request):
-
     if request.method == 'POST':
         form = AddUserPuzzleForm(request.POST)
         if form.is_valid():

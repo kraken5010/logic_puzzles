@@ -7,7 +7,7 @@ urlpatterns = [
     path('', main_puzzles, name='main_puzzles'),
     path('puzzle/<slug:puzzle_slug>/', puzzle_detail, name='puzzle'),
     path('users_puzzles/', users_puzzles, name='users_puzzles'),
-    path('user_puzzle/<slug:user_puzzle_slug>/', user_puzzle_detail, name='user_puzzle'),
+    # path('user_puzzle/<slug:puzzle_slug>/', user_puzzle_detail, name='user_puzzle'),
     path('propose_puzzle/', propose_puzzle, name='propose_puzzle'),
     path('sign_up/', sign_up, name='sign_up'),
     path('sign_in/', SignInUser.as_view(), name='sign_in'),
@@ -22,5 +22,4 @@ urlpatterns = [
     # authentication
     path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('djoser.urls')),
-    re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]

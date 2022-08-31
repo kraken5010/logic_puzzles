@@ -10,7 +10,6 @@ curse_words = ['Cunt', 'motherfucker', 'fuck', 'bitch', 'ass', 'cock', 'dick', '
 
 class AddUserPuzzleForm(forms.ModelForm):
     """Form for adding an entry to the UserPuzzle table"""
-
     class Meta:
         model = UserPuzzle
         fields = ['title', 'question', 'answer']
@@ -55,5 +54,17 @@ class SignUpForm(UserCreationForm):
 class SignInForm(AuthenticationForm):
     username = forms.CharField(max_length=50, label='Login', widget=forms.TextInput(attrs={'placeholder': 'Your login'}))
     password = forms.CharField(max_length=50, label='Password', widget=forms.TextInput(attrs={'placeholder': 'Your password', 'type': 'password'}))
+
+
+class CommentForm(forms.ModelForm):
+    """Comment Form"""
+    class Meta:
+        model = Comment
+        exclude = ['user']
+        fields = ['text', 'parent']
+        widgets = {
+            'text': forms.Textarea(attrs={'id': 'contactcomment', 'rows': 2, 'placeholder': 'Your comment'}),
+            'parent': forms.TextInput(attrs={'type': 'hidden', 'id': 'contactparent'})
+        }
 
 

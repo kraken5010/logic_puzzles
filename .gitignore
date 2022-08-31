@@ -1,12 +1,13 @@
 ### python template
 ### Python ###
 
-../frontend
+/frontend
 
 # Byte-compiled / optimized / DLL files
 puzzles/__pycache__/
 app/__pycache__/
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
