@@ -23,6 +23,11 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ('text', 'user', 'parent')
 
 
+class PageHitAdmin(admin.ModelAdmin):
+    list_display = ('id', 'url', 'count')
+
+
 admin.site.register(Puzzle, PuzzleAdmin)
 admin.site.register(UserPuzzle, UserPuzzleAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(PageHit, PageHitAdmin)

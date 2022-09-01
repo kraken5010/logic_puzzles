@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from .forms import *
+from .decorators import counted
 
 menu = [
     {'title': 'Main puzzles', 'url_name': 'main_puzzles'},
@@ -16,6 +17,7 @@ menu = [
 
 # Main page
 def main_puzzles(request):
+    """Main puzzles for page list"""
     puzzles = Puzzle.objects.all()
     context = {
         'menu': menu,
@@ -25,7 +27,9 @@ def main_puzzles(request):
     return render(request, 'main_puzzles.html', context=context)
 
 
+@counted
 def puzzle_detail(request, puzzle_slug):
+    """Puzzle detail page"""
     try:
         puzzle = Puzzle.objects.get(slug=puzzle_slug)
         try:
@@ -72,6 +76,8 @@ def puzzle_detail(request, puzzle_slug):
     else:
         form = CommentForm()
 
+    num_of_transition = PageHit.objects.filter(url=request.path).values('count')
+
     context = {
         'menu': menu,
         'puzzle': puzzle,
@@ -79,12 +85,14 @@ def puzzle_detail(request, puzzle_slug):
         'title': puzzle.title,
         'next_puzzle': next_puzzle,
         'prev_puzzle': prev_puzzle,
-        'form': form
+        'form': form,
+        'count': num_of_transition[0]['count']
     }
     return render(request, 'puzzle_detail.html', context=context)
 
 
 def users_puzzles(request):
+    """Users puzzles list to page"""
     users_puzzles = UserPuzzle.objects.filter(draft=True)
     context = {
         'menu': menu,
@@ -95,6 +103,7 @@ def users_puzzles(request):
 
 
 def propose_puzzle(request):
+    """Users propose their puzzle"""
     if request.method == 'POST':
         form = AddUserPuzzleForm(request.POST)
         if form.is_valid():
@@ -114,6 +123,7 @@ def propose_puzzle(request):
 
 
 def about_app(request):
+    """About app page"""
     context = {
         'menu': menu,
         'title': 'About app',

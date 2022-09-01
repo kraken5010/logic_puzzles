@@ -71,3 +71,17 @@ class Comment(models.Model):
         verbose_name = "Comment"
         verbose_name_plural = "Comments"
         ordering = ['-id']
+
+
+class PageHit(models.Model):
+    """Number of clicks per page"""
+    url = models.CharField(max_length=255, unique=True)
+    count = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.url} - {self.count}'
+
+    class Meta:
+        verbose_name = 'Page hit'
+        verbose_name_plural = 'Page hits'
+        ordering = ['-count']
