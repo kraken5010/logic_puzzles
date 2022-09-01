@@ -21,6 +21,7 @@
 
     <div class="comment-block">
 <!--        <p>{{ puzzle.comment_set.count }}</p>-->
+        {% if request.user.is_authenticated %}
         <form class="form-answer" method="post" id="formComment">
               {% csrf_token %}
               {% for f in form %}
@@ -29,6 +30,9 @@
               {% endfor %}
               <button class="send-comm-btn" type="submit">Send puzzle</button>
           </form>
+        {% else %}
+        <p>Only authorized users can write comments</p>
+        {% endif %}
 
       <ul class="comm-list">
         {% for comm in comments %}
@@ -37,11 +41,12 @@
             <p class="comm-text">{{ comm.text }}</p>
             <a href="#formComment" class="comm-answer" onclick="addComment('{{ comm.user }}', {{ comm.id }})">answer</a>
 
-          {% for child_comm in comm.comment_set.all %}
+          {% for child_comm in comm.comment_set.all reversed %}
           <ul class="child-comm-list">
             <li>
               <p class="comm-author">{{ child_comm.user }}</p>
               <p class="comm-text">{{ child_comm.text }}</p>
+              <a href="#formComment" class="comm-answer" onclick="addComment('{{ comm.user }}', {{ comm.id }})">answer</a>
             </li>
           </ul>
           {% endfor %}

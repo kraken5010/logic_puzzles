@@ -6,6 +6,7 @@ from .models import PageHit
 
 
 def counted(f):
+    """Page hit counter decorator"""
     @wraps(f)
     def decorator(request, *args, **kwargs):
         with transaction.atomic():

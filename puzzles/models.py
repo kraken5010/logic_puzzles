@@ -85,3 +85,5 @@ class PageHit(models.Model):
         verbose_name = 'Page hit'
         verbose_name_plural = 'Page hits'
         ordering = ['-count']
+
+

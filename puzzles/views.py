@@ -15,6 +15,17 @@ menu = [
 ]
 
 
+def user_profile(request):
+    username = request.user.username
+    email = request.user.email
+
+    context = {
+        'menu': menu,
+        'title': f'Profile: {username}',
+    }
+    return render(request, 'profile.html', context=context)
+
+
 # Main page
 def main_puzzles(request):
     """Main puzzles for page list"""
