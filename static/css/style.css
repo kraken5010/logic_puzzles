@@ -370,6 +370,12 @@ input[type=checkbox]:not(:checked) ~ .form-answer{
   color: #3caa1b;
   float: right;
 }
+.comm-warning{
+    font-family: 'e-Ukraine-bold';
+    color: var(--color-red);
+    font-size: 20px;
+    text-align: center;
+}
 /* Comment block end */
 
 /* Propose block start */

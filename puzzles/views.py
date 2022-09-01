@@ -1,8 +1,9 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from .forms import *
 from .decorators import counted
@@ -121,7 +122,7 @@ def propose_puzzle(request):
             obj = form.save(commit=False)
             obj.user = request.user
             form.save()
-        return redirect('users_puzzles')
+        # return redirect('users_puzzles')
     else:
         form = AddUserPuzzleForm()
 
@@ -142,31 +143,35 @@ def about_app(request):
     return render(request, 'about_app.html', context=context)
 
 
-def sign_up(request):
+class SignUpView(CreateView):
     """Authorization"""
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('home')
+    template_name = 'signup.html'
+
+    def get_context_data(self, **kwargs):
+        context = {
+            'menu': menu,
+            'title': 'Sign up',
+            'form': self.form_class
+        }
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Auto login user after register
-            user = form.save()
+            user = form.save(commit=False)
+            user.save()
             login(request, user)
             return redirect('home')
-    else:
-        form = SignUpForm()
-
-    context = {
-        'menu': menu,
-        'title': 'Sign up',
-        'form': form
-    }
-    return render(request, 'sign_up.html', context=context)
+        else:
+            return render(request, self.template_name, {'form': form})
 
 
-class SignInUser(LoginView):
+class SignInView(LoginView):
     """Authentication"""
     form_class = SignInForm
-    template_name = 'sign_in.html'
+    template_name = 'signin.html'
 
     def get_context_data(self, **kwargs):
         context = {
@@ -182,6 +187,6 @@ class SignInUser(LoginView):
 
 def logout_user(request):
     logout(request)
-    return redirect('sign_in')
+    return redirect('signin')
 
 

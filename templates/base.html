@@ -7,6 +7,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{{ title }}</title>
+      <link rel="shortcut icon" href="{% static 'img/logic_logo.png' %}" type="image/x-icon">
       <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
       <link rel="stylesheet" href="{% static 'js/script.js' %}">
   </head>
@@ -22,8 +23,8 @@
         <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
         <li><a href="{% url 'logout' %}">logout</a></li>
       {% else %}
-        <li><a href="{% url 'sign_in' %}">sign in</a></li>
-        <li><a href="{% url 'sign_up' %}">sign up</a></li>
+        <li><a href="{% url 'signin' %}">sign in</a></li>
+        <li><a href="{% url 'signup' %}">sign up</a></li>
       {% endif %}
     </ul>
   </header>

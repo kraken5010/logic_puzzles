@@ -1,8 +1,28 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.urls import reverse
 
 from django.template.defaultfilters import slugify
+
+
+class CustomUser(AbstractUser):
+    """Custom User model"""
+    GENDERS = (
+        ('male', 'male'),
+        ('female', 'female')
+    )
+
+    phone = models.CharField('Phone', max_length=255, default='', blank=True, null=True)
+    gender = models.CharField('Gender', max_length=6, choices=GENDERS, default='')
+    birth_date = models.DateField('Birth date', default='2000-12-31')
+    photo = models.ImageField('Photo', upload_to='user_photo/', blank=True)
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
 
 class CommonPuzzle(models.Model):
@@ -27,7 +47,6 @@ class CommonPuzzle(models.Model):
 
 class Puzzle(CommonPuzzle):
     """Puzzle model"""
-
     class Meta:
         verbose_name = 'Puzzle'
         verbose_name_plural = 'Puzzles'
@@ -37,7 +56,7 @@ class Puzzle(CommonPuzzle):
 class UserPuzzle(CommonPuzzle):
     """UserPuzzle model"""
     draft = models.BooleanField('Draft', default=True)
-    user = models.ForeignKey(User, verbose_name='User', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, verbose_name='User', on_delete=models.CASCADE)
 
     # Generate slug in form
     def save(self, *args, **kwargs):
@@ -56,7 +75,7 @@ class Comment(models.Model):
     parent = models.ForeignKey('self', verbose_name='parent', on_delete=models.SET_NULL, blank=True, null=True)
     puzzle = models.ForeignKey(Puzzle, verbose_name='puzzle', on_delete=models.CASCADE, blank=True, null=True)
     user_puzzle = models.ForeignKey(UserPuzzle, verbose_name='user_puzzle', on_delete=models.CASCADE, blank=True, null=True)
-    user = models.ForeignKey(User, verbose_name='user', on_delete=models.SET_DEFAULT, default='Unknown user')
+    user = models.ForeignKey(CustomUser, verbose_name='user', on_delete=models.SET_DEFAULT, default='Unknown user')
 
     def __str__(self):
         if self.puzzle:

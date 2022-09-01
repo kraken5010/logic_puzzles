@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% autoescape off %}
+
 <div class="question-item">
     <p class="question-text">
         {{ puzzle.question }}
@@ -31,7 +33,7 @@
               <button class="send-comm-btn" type="submit">Send puzzle</button>
           </form>
         {% else %}
-        <p>Only authorized users can write comments</p>
+        <p class="comm-warning">Please log in to leave a comment</p>
         {% endif %}
 
       <ul class="comm-list">
@@ -58,6 +60,7 @@
 
 
 </div>
+{% endautoescape %}
 <script>
     function addComment(name, id) {
         document.getElementById('contactparent').value = id;
