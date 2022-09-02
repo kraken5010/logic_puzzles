@@ -14,20 +14,20 @@
 <body>
 <wrapper>
 
-  <header>
+<header>
     <div class="logo"><a href="{% url 'home' %}">
         <img src="{% static 'img/logic_logo.png' %}" alt=""></a>
     </div>
     <ul class="login-block">
-      {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated %}
         <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
         <li><a href="{% url 'logout' %}">logout</a></li>
-      {% else %}
+    {% else %}
         <li><a href="{% url 'signin' %}">sign in</a></li>
         <li><a href="{% url 'signup' %}">sign up</a></li>
-      {% endif %}
+    {% endif %}
     </ul>
-  </header>
+</header>
 
     <section class="nav">
         <ul class="menu-items">

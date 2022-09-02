@@ -1,5 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<div class="profile-block">
 
+    {% if user.photo %}
+    <div class="img-wrapper">
+        <img src="{{ user.photo.url }}" alt="">
+    </div>
+    {% else %}
+    <div class="img-wrapper">
+        <img src="{% static 'img/no-photo-user.png' %}" alt="">
+    </div>
+    {% endif %}
+
+    <div class="user-profile-block">
+        <p>{{ user.username }}</p>
+        <p>{{ user.email }}</p>
+        {% if user.phone %}
+            <p>{{ user.phone }}</p>
+        {% else %}
+            <p>phone number not provided</p>
+        {% endif %}
+        {% if user.gender %}
+            <p>{{ user.gender }}</p>
+        {% else %}
+            <p>gender not specified</p>
+        {% endif %}
+        {% if user.birth_date %}
+            <p>{{ user.birth_date }}</p>
+        {% else %}
+            <p>date of birth not specified</p>
+        {% endif %}
+        <a class="change-profile-btn" href="{% url 'profile_edit' %}">change profile</a>
+    </div>
+
+
+
+</div>
 {% endblock content %}

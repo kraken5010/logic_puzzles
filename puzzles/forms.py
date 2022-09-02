@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from django.core.exceptions import ValidationError
 
 from .models import *
 
@@ -8,9 +7,9 @@ curse_words = ['Cunt', 'motherfucker', 'fuck', 'bitch', 'ass', 'cock', 'dick', '
 
 
 class CustomUserCreationForm(UserCreationForm):
+    """Creation form for Sing Up page"""
     class Meta:
         model = CustomUser
-        # fields = '__all__'
         fields = ('username', 'email')
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Your login'}),
@@ -21,10 +20,24 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
+    """Change form for admin"""
     class Meta:
         model = CustomUser
-        # fields = '__all__'
         fields = ('username', 'email', 'phone', 'gender', 'birth_date', 'photo')
+
+
+class CustomUserProfileEdit(UserChangeForm):
+    """Change form for profile/edit page"""
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'phone', 'gender', 'birth_date', 'photo')
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Your name'}),
+            'email': forms.TextInput(attrs={'placeholder': 'Your email'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'format: +380xxxxxxxxx'}),
+            'gender': forms.Select(attrs={'class': 'gender-select'}),
+            'birth_date': forms.TextInput(attrs={'placeholder': 'format: 2010-10-24'}),
+        }
 
 
 class AddUserPuzzleForm(forms.ModelForm):

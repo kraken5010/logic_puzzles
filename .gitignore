@@ -2,6 +2,7 @@
 ### Python ###
 
 /frontend
+/media
 
 # Byte-compiled / optimized / DLL files
 puzzles/__pycache__/

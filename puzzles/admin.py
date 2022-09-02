@@ -12,7 +12,8 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['id', 'username', 'email', 'phone', 'gender', 'birth_date', 'get_photo']
+    list_display = ['username', 'email', 'phone', 'gender', 'birth_date', 'get_photo']
+    list_display_links = ('username',)
     search_fields = ('username',)
     ordering = ('-id',)
 

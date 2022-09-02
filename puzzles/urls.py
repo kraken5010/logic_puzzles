@@ -8,6 +8,7 @@ from .api_views import *
 urlpatterns = [
     path('', main_puzzles, name='home'),
     path('profile', user_profile, name='profile'),
+    path('profile/edit', user_edit_profile, name='profile_edit'),
     path('', main_puzzles, name='main_puzzles'),
     path('puzzle/<slug:puzzle_slug>/', puzzle_detail, name='puzzle'),
     path('users_puzzles/', users_puzzles, name='users_puzzles'),

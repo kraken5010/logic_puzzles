@@ -62,7 +62,7 @@ form{
   margin: auto;
 }
 
-button, input, textarea {
+button, input, textarea, select {
   margin-bottom: 20px;
   font-size: 18px;
   border-radius: 20px;
@@ -71,7 +71,7 @@ button, input, textarea {
   text-shadow: 1px 1px 0 var(--color-white);
 }
 
-input, textarea {
+input, textarea, select {
   box-shadow: inset 2px 2px 5px var(--color-shadow), 
               inset -5px -5px 10px var(--color-white);
   width: 100%;
@@ -157,6 +157,20 @@ header .logo{
 .logo a img{
   width: 80px;
   margin: 0 auto;
+}
+
+header .img-wrapper{
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 0;
+}
+header .img-wrapper img{
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
 }
 
 header .login-block {
@@ -332,8 +346,23 @@ input[type=checkbox]:not(:checked) ~ .answer{
   margin: 10px 0;
 }
 .child-comm-list{
-  margin-left: 30px;
+  margin-left: 40px;
 }
+.comm-list .img-wrapper{
+    float: left;
+    width: 55px;
+    height: 55px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 5px 10px 0 0;
+}
+.comm-list .img-wrapper img{
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+}
+
 .comm-author{
   font-weight: bold;
 }
@@ -425,6 +454,80 @@ input[type=checkbox]:not(:checked) ~ .form-answer{
 }
 /* Sign in page end */
 
+/* Profile page start */
+.profile-block{
+    max-width: 650px;
+    margin: 0 auto;
+    height: 100%;
+}
+.profile-block .img-wrapper{
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+.profile-block .img-wrapper img{
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+}
+.user-profile-block {
+    float: right;
+    width: 400px;
+    max-width: 100%;
+}
+.user-profile-block p {
+    max-width: 100%;
+    text-align: left;
+    padding: 10px 20px;
+    border: 1px solid var(--color-shadow);
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.user-profile-block .change-profile-btn{
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 24px;
+    color:var(--color-red);
+    box-shadow: -5px -5px 20px var(--color-white),
+              5px 5px 20px var(--color-shadow);
+    transition: all 0.2s ease-in-out;
+    font-family: 'e-Ukraine-Medium';
+}
+.user-profile-block .change-profile-btn:hover{
+  box-shadow: -2px -2px 5px var(--color-white),
+                2px 2px 5px var(--color-shadow);
+}
+
+/* Profile page end */
+
+/* Profile edit start */
+.profile-form{
+    float: right;
+    max-width: 400px;
+}
+.profile-form .gender-select{
+    text-align: center;
+    width: 120px;
+}
+.profile-form #id_password{
+    display: none;
+}
+.profile-form #photo-clear_id[type="checkbox"]{
+    display: flex;
+    position: relative;
+    top: 40px;
+    left: -130px;
+}
+/* Profile edit end */
+
 /* About page start */
 .about-block p{
   margin: 20px 0;
@@ -433,6 +536,7 @@ input[type=checkbox]:not(:checked) ~ .form-answer{
   margin-left: 40px;
 }
 .about-block ul li{
-  list-style-type: disc;
+  list-style-type: num;
+  margin: 10px 0;
 }
 /* About page end */

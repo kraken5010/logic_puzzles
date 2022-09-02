@@ -9,7 +9,7 @@ from .forms import *
 from .decorators import counted
 
 menu = [
-    {'title': 'Main puzzles', 'url_name': 'main_puzzles'},
+    {'title': 'Puzzles', 'url_name': 'main_puzzles'},
     {'title': 'Users puzzles', 'url_name': 'users_puzzles'},
     {'title': 'Propose a puzzle', 'url_name': 'propose_puzzle'},
     {'title': 'About app', 'url_name': 'about_app'}
@@ -17,14 +17,34 @@ menu = [
 
 
 def user_profile(request):
-    username = request.user.username
-    email = request.user.email
+    """Profile user"""
+    user = CustomUser.objects.get(username=request.user)
 
     context = {
         'menu': menu,
-        'title': f'Profile: {username}',
+        'title': f'Profile: {request.user.username}',
+        'user': user,
+        'phone': request.user.phone
     }
     return render(request, 'profile.html', context=context)
+
+
+def user_edit_profile(request):
+    """Edit profile user"""
+    if request.method == 'POST':
+        user_form = CustomUserProfileEdit(instance=request.user, data=request.POST, files=request.FILES)
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = CustomUserProfileEdit(instance=request.user)
+
+    context = {
+        'menu': menu,
+        'title': f'Edit profile: {request.user.username}',
+        'form': user_form,
+        'user_photo': request.user.photo
+    }
+    return render(request, 'profile_edit.html', context=context)
 
 
 # Main page
@@ -122,7 +142,7 @@ def propose_puzzle(request):
             obj = form.save(commit=False)
             obj.user = request.user
             form.save()
-        # return redirect('users_puzzles')
+        return redirect('users_puzzles')
     else:
         form = AddUserPuzzleForm()
 

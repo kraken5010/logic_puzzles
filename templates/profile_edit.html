@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-block">
+
+    {% if user_photo %}
+    <div class="img-wrapper">
+        <img src="{{ user_photo.url }}" alt="">
+    </div>
+    {% else %}
+    <div class="img-wrapper">
+        <img src="{% static 'img/no-photo-user.png' %}" alt="">
+    </div>
+    {% endif %}
+
+    <form action="" class="profile-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for f in form %}
+            <div class="form-error">{{ f.errors }}</div>
+            {{ f }}
+        {% endfor %}
+
+        <button class="send-btn" type="submit">save changes</button>
+
+
+    </form>
+</div>
+{% endblock content %}

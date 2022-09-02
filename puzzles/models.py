@@ -1,8 +1,17 @@
-from django.contrib.auth.models import User, AbstractUser
+import re
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 
-from django.template.defaultfilters import slugify
+from pytils import translit
+
+
+def validate_phone(phone):
+    """Phone number validator"""
+    regex_ua = r'^\+380\d{9}$'
+    if not re.match(regex_ua, phone):
+        raise ValidationError(f'{phone} is not valid!')
 
 
 class CustomUser(AbstractUser):
@@ -12,7 +21,7 @@ class CustomUser(AbstractUser):
         ('female', 'female')
     )
 
-    phone = models.CharField('Phone', max_length=255, default='', blank=True, null=True)
+    phone = models.CharField('Phone', validators=[validate_phone], help_text='format +380xxxxxxxxx', max_length=13, blank=True, null=True)
     gender = models.CharField('Gender', max_length=6, choices=GENDERS, default='')
     birth_date = models.DateField('Birth date', default='2000-12-31')
     photo = models.ImageField('Photo', upload_to='user_photo/', blank=True)
@@ -58,9 +67,9 @@ class UserPuzzle(CommonPuzzle):
     draft = models.BooleanField('Draft', default=True)
     user = models.ForeignKey(CustomUser, verbose_name='User', on_delete=models.CASCADE)
 
-    # Generate slug in form
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        """Slug generation from cyrillic"""
+        self.slug = translit.slugify(self.title)
         super(UserPuzzle, self).save(*args, **kwargs)
 
     class Meta:
@@ -82,9 +91,6 @@ class Comment(models.Model):
             return f"{self.user} - {self.puzzle}"
         else:
             return f"{self.user} - {self.user_puzzle}"
-
-    def get_child_comments(self):
-        return self.comment_set.filter(parent__isnull=False).select_related('user')
 
     class Meta:
         verbose_name = "Comment"
