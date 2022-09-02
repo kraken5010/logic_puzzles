@@ -16,6 +16,16 @@
 
     <div class="user-profile-block">
         <p>{{ user.username }}</p>
+        {% if user.first_name %}
+            <p>{{ user.first_name }}</p>
+        {% else %}
+            <p>first name not specified</p>
+        {% endif %}
+        {% if user.last_name %}
+            <p>{{ user.last_name }}</p>
+        {% else %}
+            <p>last name not specified</p>
+        {% endif %}
         <p>{{ user.email }}</p>
         {% if user.phone %}
             <p>{{ user.phone }}</p>

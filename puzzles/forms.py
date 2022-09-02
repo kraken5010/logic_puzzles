@@ -30,13 +30,15 @@ class CustomUserProfileEdit(UserChangeForm):
     """Change form for profile/edit page"""
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'phone', 'gender', 'birth_date', 'photo')
+        fields = ('username', 'first_name', 'last_name', 'email', 'phone', 'gender', 'birth_date', 'photo')
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Your name'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Your login'}),
             'email': forms.TextInput(attrs={'placeholder': 'Your email'}),
             'phone': forms.TextInput(attrs={'placeholder': 'format: +380xxxxxxxxx'}),
             'gender': forms.Select(attrs={'class': 'gender-select'}),
             'birth_date': forms.TextInput(attrs={'placeholder': 'format: 2010-10-24'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'Your first name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Your last name'}),
         }
 
 
