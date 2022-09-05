@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-b)rn15907-swj198+1ccaiw$b=6wj6_b6fj@$1h87i5aih0wpj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -135,6 +135,10 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [STATIC_DIR]
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update()
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
