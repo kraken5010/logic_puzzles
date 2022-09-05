@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+import django_heroku
+import dj_database_url
+
 import psycopg2
 from .db_config import *
 
@@ -136,7 +139,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [STATIC_DIR]
 
-import dj_database_url
+django_heroku.settings(locals())
+
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
