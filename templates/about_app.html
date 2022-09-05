@@ -3,7 +3,7 @@
 {% block content %}
 <div class="about-block">
       <p>The application "Logic Puzzles" was created to develop the creative thinking of users.</p>
-      <p>Written in Django using PostgreSQL database. Neumorphism was used on the frontend.</p>
+      <p>Written in Django using PostgreSQL database and REST API. Neumorphism was used on the frontend.</p>
       <p>Implemented functionality:</p>
       <ul>
           <li>Customization of the User model has been completed using AbstractUser.
@@ -21,6 +21,16 @@
           <li>Added number of pageviews;</li>
           <li>Adding comments by users;</li>
           <li>Commenting on early comments;</li>
+          <li>Rest API implemented using DRF:
+              <ul class="nested-list">
+                  <li><a href="https://logicpuzzles.herokuapp.com/api/v1/puzzleslist/">https://logicpuzzles.herokuapp.com/api/v1/puzzleslist/</a></li>
+                  <li><a href="https://logicpuzzles.herokuapp.com/api/v1/puzzle/detail/10/">https://logicpuzzles.herokuapp.com/api/v1/puzzle/detail/10/</a></li>
+                  <li><a href="https://logicpuzzles.herokuapp.com/api/v1/userpuzzlelist/">https://logicpuzzles.herokuapp.com/api/v1/userpuzzlelist/</a></li>
+                  <li><a href="https://logicpuzzles.herokuapp.com/api/v1/userpuzzle/detail/1/">https://logicpuzzles.herokuapp.com/api/v1/userpuzzle/detail/1/</a></li>
+                  <li><a href="https://logicpuzzles.herokuapp.com/api/v1/userpuzzle/create/">https://logicpuzzles.herokuapp.com/api/v1/userpuzzle/create/</a></li>
+              </ul>
+          </li>
+          <li>Configured different permissions for different user groups;</li>
       </ul>
   </div>
 {% endblock content %}
