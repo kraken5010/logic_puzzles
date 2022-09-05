@@ -101,10 +101,10 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd7c26h7peiqpr5',
-        'USER': 'ttxvknmaeqdpmv',
-        'PASSWORD': '2f6c0a8a6b5436b89a08f3ceddb92052bf0d852b016ac2517e5f894f3d7be265',
-        'HOST': 'ec2-63-34-180-86.eu-west-1.compute.amazonaws.com',
+        'NAME': 'de0jtdhdo3um74',
+        'USER': 'orxcaplyvwmgxq',
+        'PASSWORD': '7fca596f16c44ff48d156c0038431a4f3d139a45b4da0a3ea402377514cbd7d3',
+        'HOST': 'ec2-52-211-232-23.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
