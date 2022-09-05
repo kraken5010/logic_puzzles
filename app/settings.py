@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -86,14 +87,27 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Localhost database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': db_name,
+#         'USER': user,
+#         'PASSWORD': password,
+#         'HOST': host,
+#         'PORT': port,
+#     }
+# }
+
+# Heroku database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': db_name,
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': host,
-        'PORT': port,
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'de0jtdhdo3um74',
+        'USER': 'orxcaplyvwmgxq',
+        'PASSWORD': '7fca596f16c44ff48d156c0038431a4f3d139a45b4da0a3ea402377514cbd7d3',
+        'HOST': 'ec2-52-211-232-23.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -134,8 +148,8 @@ AUTH_USER_MODEL = 'puzzles.CustomUser'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [STATIC_DIR]
 
