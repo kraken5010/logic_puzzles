@@ -17,7 +17,6 @@ import dj_database_url
 
 import psycopg2
 from .db_config import *
-from .heroku_db_config import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -101,11 +100,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': heroku_db_name,
-        'USER': heroku_user,
-        'PASSWORD': heroku_password,
-        'HOST': heroku_host,
-        'PORT': heroku_port,
+        'NAME': 'd7c26h7peiqpr5',
+        'USER': 'ttxvknmaeqdpmv',
+        'PASSWORD': '2f6c0a8a6b5436b89a08f3ceddb92052bf0d852b016ac2517e5f894f3d7be265',
+        'HOST': 'ec2-63-34-180-86.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
