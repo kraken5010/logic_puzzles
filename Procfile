@@ -1,1 +1,1 @@
-web: gunicorn logicpuzzles.wsgi --log-file -
+web: gunicorn logic_puzzles.wsgi --log-file -
